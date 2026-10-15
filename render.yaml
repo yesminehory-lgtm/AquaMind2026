@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: aquamind-api
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node src/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_URL
+        value: https://yesminehory-lgtm.github.io
+      - key: DATABASE_URL
+        fromDatabase:
+          name: aquamind-db
+          property: connectionString
+
+databases:
+  - name: aquamind-db
+    plan: free
+    databaseName: aquamind
+    user: aquamind
